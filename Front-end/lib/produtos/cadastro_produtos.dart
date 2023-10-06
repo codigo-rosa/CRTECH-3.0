@@ -150,7 +150,9 @@ class ConteudoPagina extends State {
         backgroundColor: Colors.pink,
         title: const Text("Cadastro de Produtos"),
       ),
-      body: Center(
+     body: Padding(
+    padding: EdgeInsets.all(40.0), // Defina o espaço desejado aqui
+    child: Center(
         child: Column(
           children: [
             SizedBox(
@@ -207,7 +209,7 @@ class ConteudoPagina extends State {
                       });
                     },
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 25),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
@@ -252,17 +254,29 @@ class ConteudoPagina extends State {
                 ],
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 80),
             Expanded(
               child: DefaultTabController(
                 length: 3,
                 child: Scaffold(
-                  appBar: TabBar(
+                  appBar: const TabBar(
+                    indicator: BoxDecoration(
+                      color: Colors.pink, // Cor do sublinhado
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.pink, // Cor do sublinhado
+                          width: 2.0, // Largura do sublinhado
+                        ),
+                      ),
+                    ),
                     tabs: [
                       Tab(text: 'Gamer'),
                       Tab(text: 'Rede'),
                       Tab(text: 'Hardware'),
                     ],
+                    labelColor: Colors.white, // Cor do texto das guias ativas
+                    unselectedLabelColor:
+                        Colors.pink, // Cor do texto das guias inativas
                   ),
                   body: TabBarView(
                     children: [
@@ -277,6 +291,7 @@ class ConteudoPagina extends State {
           ],
         ),
       ),
+    ),
     );
   }
 
