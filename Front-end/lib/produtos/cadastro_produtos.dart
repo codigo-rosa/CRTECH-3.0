@@ -131,6 +131,27 @@ Future<List<Produto>> selecionarProdutosRede() async {
   return produtos;
 }
 
+Future<void> apagarProdutoGamer(int id) async {
+  await http.delete(
+    Uri.parse('http://localhost:3000/listaGamer/$id'),
+    headers: <String, String>{'Content-type': 'application/json'},
+  );
+}
+
+Future<void> apagarProdutoHardware(int id) async {
+  await http.delete(
+    Uri.parse('http://localhost:3000/listaDeHardware/$id'),
+    headers: <String, String>{'Content-type': 'application/json'},
+  );
+}
+
+Future<void> apagarProdutoRede(int id) async {
+  await http.delete(
+    Uri.parse('http://localhost:3000/listaDeRede/$id'),
+    headers: <String, String>{'Content-type': 'application/json'},
+  );
+}
+
 class ConteudoPagina extends State {
   String? nome;
   String? descricao;
@@ -150,152 +171,155 @@ class ConteudoPagina extends State {
         backgroundColor: Colors.pink,
         title: const Text("Cadastro de Produtos"),
       ),
-     body: Padding(
-    padding: EdgeInsets.all(40.0), // Defina o espaço desejado aqui
-    child: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              width: 300,
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite um nome',
+      body: Padding(
+        padding: EdgeInsets.all(40.0),
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                width: 300,
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite um nome',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          nome = valor;
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        nome = valor;
-                      });
-                    },
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite uma descrição',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite uma descrição',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          descricao = valor;
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        descricao = valor;
-                      });
-                    },
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite um preço',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite um preço',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          preco = double.tryParse(valor);
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        preco = double.tryParse(valor);
-                      });
-                    },
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite uma quantidade',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite uma quantidade',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          quantidade = int.tryParse(valor);
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        quantidade = int.tryParse(valor);
-                      });
-                    },
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite o endereço da imagem',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite o endereço da imagem',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          imagem = valor;
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        imagem = valor;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 25),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        cadastrarProdutoGamer(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Gamer"),
-                  ),
-                  const SizedBox(height: 5),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        cadastrarProdutoRede(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Rede"),
-                  ),
-                  const SizedBox(height: 5),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        cadastrarProdutoHardware(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Hardware"),
-                  ),
-                ],
+                    const SizedBox(height: 25),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoGamer(
+                              nome!, descricao!, preco!, quantidade!, imagem!);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.pink,
+                          fixedSize: const Size(210, 20)),
+                      child: const Text("Cadastrar Produto Gamer"),
+                    ),
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoRede(
+                              nome!, descricao!, preco!, quantidade!, imagem!);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.pink,
+                          fixedSize: const Size(210, 20)),
+                      child: const Text("Cadastrar Produto Rede"),
+                    ),
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoHardware(
+                              nome!, descricao!, preco!, quantidade!, imagem!);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.pink,
+                          fixedSize: const Size(210, 20)),
+                      child: const Text("Cadastrar Produto Hardware"),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 80),
-            Expanded(
-              child: DefaultTabController(
-                length: 3,
-                child: Scaffold(
-                  appBar: const TabBar(
-                    indicator: BoxDecoration(
-                      color: Colors.pink, // Cor do sublinhado
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Colors.pink, // Cor do sublinhado
-                          width: 2.0, // Largura do sublinhado
+              const SizedBox(height: 80),
+              Expanded(
+                child: DefaultTabController(
+                  length: 3,
+                  child: Scaffold(
+                    appBar: const TabBar(
+                      indicator: BoxDecoration(
+                        color: Colors.pink,
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.pink,
+                            width: 2.0,
+                          ),
                         ),
                       ),
+                      tabs: [
+                        Tab(text: 'Gamer'),
+                        Tab(text: 'Rede'),
+                        Tab(text: 'Hardware'),
+                      ],
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.pink,
                     ),
-                    tabs: [
-                      Tab(text: 'Gamer'),
-                      Tab(text: 'Rede'),
-                      Tab(text: 'Hardware'),
-                    ],
-                    labelColor: Colors.white, // Cor do texto das guias ativas
-                    unselectedLabelColor:
-                        Colors.pink, // Cor do texto das guias inativas
-                  ),
-                  body: TabBarView(
-                    children: [
-                      _buildProdutoList(selecionarProdutosGamer),
-                      _buildProdutoList(selecionarProdutosRede),
-                      _buildProdutoList(selecionarProdutosHardware),
-                    ],
+                    body: TabBarView(
+                      children: [
+                        _buildProdutoList(
+                            selecionarProdutosGamer, apagarProdutoGamer),
+                        _buildProdutoList(
+                            selecionarProdutosRede, apagarProdutoRede),
+                        _buildProdutoList(
+                            selecionarProdutosHardware, apagarProdutoHardware),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 
-  Widget _buildProdutoList(Future<List<Produto>> Function() fetchProdutos) {
+  Widget _buildProdutoList(Future<List<Produto>> Function() fetchProdutos,
+      Future<void> Function(int id) deletarProdutos) {
     return FutureBuilder(
       future: fetchProdutos(),
       builder: (context, snapshot) {
@@ -309,9 +333,6 @@ class ConteudoPagina extends State {
           itemCount: snapshot.data?.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () {
-                _mostrarDetalhesProduto(context, snapshot.data![index]);
-              },
               child: Card(
                 elevation: 3,
                 margin: const EdgeInsets.all(10),
@@ -324,7 +345,29 @@ class ConteudoPagina extends State {
                     "ID: ${snapshot.data?[index].id}",
                     style: TextStyle(fontSize: 14),
                   ),
-                  trailing: Icon(Icons.arrow_forward),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_forward),
+                        onPressed: () {
+                          setState(() {
+                            _mostrarDetalhesProduto(
+                                context, snapshot.data![index]);
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            int? id = snapshot.data![index].id;
+                            deletarProdutos(id!);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -346,7 +389,7 @@ class ConteudoPagina extends State {
               Text("ID: ${produto.id}"),
               Text("Nome: ${produto.nome}"),
               Text("Descrição: ${produto.descricao}"),
-              Text("Preço: ${produto.preco?.toStringAsFixed(2)}"),
+              Text("Preço: ${produto.preco?.toStringAsFixed(2) ?? 'N/A'}"),
               Text("Quantidade: ${produto.quantidade}"),
             ],
           ),
