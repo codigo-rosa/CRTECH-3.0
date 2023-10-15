@@ -17,8 +17,7 @@ class PaginaPrincipal extends StatefulWidget {
   final List<Produtos> carrinho;
   List<Produtos> favoritos;
 
-  PaginaPrincipal(
-      {Key? key, required this.carrinho, required this.favoritos})
+  PaginaPrincipal({Key? key, required this.carrinho, required this.favoritos})
       : super(key: key);
 
   @override
@@ -130,7 +129,7 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
                       });
                     } else {
                       setState(() {
-                        widget.favoritos.add(produtos);
+                        widget.favoritos = [...widget.favoritos, produtos];
                       });
                     }
                   });
