@@ -18,15 +18,15 @@ class DetalhesProdutoMaior extends StatefulWidget {
 
 class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
   double _rating = 0.0;
-  TextEditingController _commentController = TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
   bool _comentarioEnviado = false;
   List<Produtos> produtosSugeridos = [];
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
   double _scrollMax = 0.0;
 
 
-  double _scrollIncrement = 5.0;
+  final double _scrollIncrement = 5.0;
 
 
   @override
@@ -47,13 +47,13 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
   }
 
   void _scrollAutomatically() {
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       if (_scrollPosition >= _scrollMax) {
         _scrollPosition = 0.0;
       }
       _scrollController.animateTo(
         _scrollPosition,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.ease,
       );
       _scrollPosition += _scrollIncrement;
@@ -76,7 +76,7 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
     return Scaffold(
       backgroundColor: Colors.grey.withOpacity(0.1),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(241, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(241, 255, 255, 255),
         elevation: 0,
         leading: IconButton(
           onPressed: () {
@@ -93,7 +93,7 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Padding(
@@ -108,7 +108,7 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
             const SizedBox(height: 35.0),
             Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Padding(
@@ -153,7 +153,7 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Produtos Sugeridos",
                   style: TextStyle(
                     fontSize: 20, // Tamanho da fonte do cabeçalho
@@ -162,7 +162,7 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
                   height: 100,
@@ -264,6 +264,9 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
                                   mostrarModalEnviado(
                                       context); //Chama o método para enviar o comentário
                                 },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.pink, // Cor do botão
+                                ),
                               
 
                                 child: const Text(
@@ -271,9 +274,6 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
                                   style: TextStyle(
                                     color: Colors.white, // Cor do texto
                                   ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.pink, // Cor do botão
                                 ),
 
                               ),
@@ -302,6 +302,9 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.pink, // Cor do botão
+              ),
 
 
               child: const Text(
@@ -309,9 +312,6 @@ class _DetalhesProdutoMaiorState extends State<DetalhesProdutoMaior> {
                 style: TextStyle(
                   color: Colors.white, // Cor do texto
                 ),
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.pink, // Cor do botão
               ),
 
             ),
