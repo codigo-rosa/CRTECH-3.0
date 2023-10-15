@@ -15,11 +15,8 @@ import 'package:intl/intl.dart';
 
 class PaginaPrincipal extends StatefulWidget {
   final List<Produtos> carrinho;
-  List<Produtos> favoritos;
 
-  PaginaPrincipal(
-      {Key? key, required this.carrinho, required this.favoritos})
-      : super(key: key);
+  const PaginaPrincipal({Key? key, required this.carrinho}) : super(key: key);
 
   @override
   _EstadoPaginaPrincipal createState() => _EstadoPaginaPrincipal();
@@ -29,12 +26,8 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
   int isSelected = 0;
   String searchText = "";
   List<Produtos> listaDeProdutos = MeusProdutos.todosProdutos;
+  List<Produtos> favoritos = [];
   List<Produtos> carrinho = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +90,9 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
           });
         },
         selectedIndex: isSelected,
-        favoritos: widget.favoritos,
+        favoritos: favoritos,
       ),
-      backgroundColor: const Color.fromARGB(239, 238, 237, 237),
+      backgroundColor: Color.fromARGB(239, 238, 237, 237),
     );
   }
 
@@ -117,29 +110,27 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
               IconButton(
                 iconSize: 18.5, // Tamanho do ícone
                 icon: Icon(
-                  widget.favoritos.contains(produtos)
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: const Color.fromARGB(255, 231, 130, 164),
+
+                  favoritos.contains(produtos) ? Icons.favorite : Icons.favorite_border,
+
+                  color: Color.fromARGB(255, 231, 130, 164),
                 ),
                 onPressed: () {
                   setState(() {
-                    if (widget.favoritos.contains(produtos)) {
-                      setState(() {
-                        widget.favoritos.remove(produtos);
-                      });
+
+                    if (favoritos.contains(produtos)) {
+                      favoritos.remove(produtos);
                     } else {
-                      setState(() {
-                        widget.favoritos.add(produtos);
-                      });
+                      favoritos.add(produtos);
                     }
+
                   });
                 },
               ),
               // Ícone de carrinho para adicionar ao carrinho
               IconButton(
                 iconSize: 18.5, // Tamanho do ícone
-                icon: const Icon(
+                icon: Icon(
                   Icons.add_shopping_cart_sharp,
                   color: Colors.black, // Cor do ícone de carrinho
                 ),
@@ -223,7 +214,7 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
 
   Widget construirCategoriasDeProdutos() {
     return Container(
-      color: const Color.fromARGB(239, 238, 237, 237),
+      color: Color.fromARGB(239, 238, 237, 237),
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
       child: SingleChildScrollView(
@@ -257,7 +248,7 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
         decoration: BoxDecoration(
           color: isSelected == index
               ? Colors.pink
-              : const Color.fromARGB(
+              : Color.fromARGB(
                   239, 238, 237, 237), // Use Colors.pink quando selecionado
           borderRadius: BorderRadius.circular(10),
         ),
@@ -266,7 +257,7 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
           style: TextStyle(
             color: isSelected == index
                 ? Colors.white
-                : const Color.fromARGB(255, 25, 26, 25),
+                : Color.fromARGB(255, 25, 26, 25),
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
           ),
@@ -305,3 +296,4 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
     );
   }
 }
+

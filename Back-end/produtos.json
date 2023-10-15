@@ -159,6 +159,22 @@
       "quantidade": 1,
       "imagem": "aaaaaa",
       "id": 20
+    },
+    {
+      "nome": "teste",
+      "descricao": "descrição teste",
+      "preco": 20,
+      "quantidade": 1,
+      "imagem": "endereço da imagem",
+      "id": 21
+    },
+    {
+      "nome": "teste",
+      "descricao": "descrição teste",
+      "preco": 20,
+      "quantidade": 1,
+      "imagem": "endereço da imagem",
+      "id": 22
     }
   ],
   "listaDeHardware": [
@@ -305,6 +321,14 @@
       "quantidade": 1,
       "imagem": "aaaaaaaaaaa",
       "id": 18
+    },
+    {
+      "nome": "teste",
+      "descricao": "descrição",
+      "preco": 50,
+      "quantidade": 2,
+      "imagem": "jsdhsjdh",
+      "id": 19
     }
   ],
   "listaDeRede": [
@@ -435,6 +459,14 @@
       "quantidade": 1,
       "imagem": "aaaaa",
       "id": 16
+    },
+    {
+      "nome": "teste",
+      "descricao": "descrição teste",
+      "preco": 20,
+      "quantidade": 1,
+      "imagem": "endereço da imagem",
+      "id": 17
     }
   ]
 }

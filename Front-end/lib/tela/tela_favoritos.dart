@@ -1,12 +1,11 @@
-import 'package:crtech/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:crtech/produtos/produtos.dart';
 
 class TelaFavoritos extends StatefulWidget {
-  List<Produtos> favoritos;
+  final List<Produtos> favoritos;
 
-  TelaFavoritos({Key? key, required this.favoritos}) : super(key: key);
+  const TelaFavoritos({Key? key, required this.favoritos}) : super(key: key);
 
   @override
   TelaFavoritosState createState() => TelaFavoritosState();
@@ -17,22 +16,12 @@ class TelaFavoritosState extends State<TelaFavoritos> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => PaginaPrincipal(
-                        carrinho: const [],
-                        favoritos: widget.favoritos,
-                      )))
-            },
-          ),
           title: const Text('Favoritos'),
           backgroundColor: Colors.pink,
         ),
-        backgroundColor: const Color.fromARGB(239, 238, 237, 237),
+        backgroundColor: Color.fromARGB(239, 238, 237, 237),
         body: widget.favoritos.isEmpty
-            ? const Center(
+            ? Center(
                 child: Text(
                   'Adicione seus produtos favoritos aqui!',
                   style: TextStyle(
@@ -47,10 +36,10 @@ class TelaFavoritosState extends State<TelaFavoritos> {
                 itemCount: widget.favoritos.length,
                 itemBuilder: (context, index) {
                   final produto = widget.favoritos[index];
-
+                  
                   return Container(
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.all(8),
+                    margin: EdgeInsets.symmetric(
                         vertical: 8,
                         horizontal: 16), // Espaçamento externo do contêiner
                     decoration: BoxDecoration(
@@ -73,13 +62,13 @@ class TelaFavoritosState extends State<TelaFavoritos> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.favorite,
-                                color: Color.fromARGB(255, 231, 130, 164),
+                              color: Color.fromARGB(255, 231, 130, 164),
                               ),
                               onPressed: () {
                                 setState(() {
-                                  widget.favoritos.removeAt(index);
+                                widget.favoritos.removeAt(index);
                                 });
                               }),
                         ],
