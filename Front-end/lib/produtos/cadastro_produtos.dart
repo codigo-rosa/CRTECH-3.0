@@ -49,21 +49,56 @@ Future<void> cadastrarProdutoGamer(String? nome, String? descricao,
       imagem == null) {
     const snackBar = SnackBar(
       content: Text(
-          'Por favor, preencha todas informações para cadastrar o produto.'),
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
       duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else if (nome.isEmpty ||
+      descricao.isEmpty ||
+      preco.isNaN ||
+      quantidade.isNaN ||
+      imagem.isEmpty) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   } else {
-    await http.post(Uri.parse('http://localhost:3000/listaGamer'),
-        headers: <String, String>{'Content-type': 'application/json'},
-        body: jsonEncode(<String, dynamic>{
-          'nome': nome,
-          'descricao': descricao,
-          'preco': preco,
-          'quantidade': quantidade,
-          'imagem': imagem
-        }));
+    await http
+        .post(Uri.parse('http://localhost:3000/listaGamer'),
+            headers: <String, String>{'Content-type': 'application/json'},
+            body: jsonEncode(<String, dynamic>{
+              'nome': nome,
+              'descricao': descricao,
+              'preco': preco,
+              'quantidade': quantidade,
+              'imagem': imagem
+            }))
+        .then((value) => {
+              if (value.statusCode == 201)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Item cadastrado com sucesso.'),
+                    duration: Duration(seconds: 4),
+                    backgroundColor: Colors.green,
+                  ))
+                }
+              else
+                {throw Error}
+            })
+        .catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Ocorreu um erro ao registrar o produto.'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.red,
+      ));
+    });
   }
 }
 
@@ -81,16 +116,49 @@ Future<void> cadastrarProdutoHardware(String? nome, String? descricao,
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else if (nome.isEmpty ||
+      descricao.isEmpty ||
+      preco.isNaN ||
+      quantidade.isNaN ||
+      imagem.isEmpty) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   } else {
-    await http.post(Uri.parse('http://localhost:3000/listaDeHardware'),
-        headers: <String, String>{'Content-type': 'application/json'},
-        body: jsonEncode(<String, dynamic>{
-          'nome': nome,
-          'descricao': descricao,
-          'preco': preco,
-          'quantidade': quantidade,
-          'imagem': imagem
-        }));
+    await http
+        .post(Uri.parse('http://localhost:3000/listaDeHardware'),
+            headers: <String, String>{'Content-type': 'application/json'},
+            body: jsonEncode(<String, dynamic>{
+              'nome': nome,
+              'descricao': descricao,
+              'preco': preco,
+              'quantidade': quantidade,
+              'imagem': imagem
+            }))
+        .then((value) => {
+              if (value.statusCode == 201)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Item cadastrado com sucesso.'),
+                    duration: Duration(seconds: 4),
+                    backgroundColor: Colors.green,
+                  ))
+                }
+              else
+                {throw Error}
+            })
+        .catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Ocorreu um erro ao registrar o produto.'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.red,
+      ));
+    });
   }
 }
 
@@ -103,21 +171,54 @@ Future<void> cadastrarProdutoRede(String? nome, String? descricao,
       imagem == null) {
     const snackBar = SnackBar(
       content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else if (nome.isEmpty ||
+      descricao.isEmpty ||
+      preco.isNaN ||
+      quantidade.isNaN ||
+      imagem.isEmpty) {
+    const snackBar = SnackBar(
+      content: Text(
           'Por favor, preencha todas informações para cadastrar o produto.'),
       duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
     );
-
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   } else {
-    await http.post(Uri.parse('http://localhost:3000/listaDeRede'),
-        headers: <String, String>{'Content-type': 'application/json'},
-        body: jsonEncode(<String, dynamic>{
-          'nome': nome,
-          'descricao': descricao,
-          'preco': preco,
-          'quantidade': quantidade,
-          'imagem': imagem
-        }));
+    await http
+        .post(Uri.parse('http://localhost:3000/listaDeRede'),
+            headers: <String, String>{'Content-type': 'application/json'},
+            body: jsonEncode(<String, dynamic>{
+              'nome': nome,
+              'descricao': descricao,
+              'preco': preco,
+              'quantidade': quantidade,
+              'imagem': imagem
+            }))
+        .then((value) => {
+              if (value.statusCode == 201)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Item cadastrado com sucesso.'),
+                    duration: Duration(seconds: 4),
+                    backgroundColor: Colors.green,
+                  ))
+                }
+              else
+                {throw Error}
+            })
+        .catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Ocorreu um erro ao registrar o produto.'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.red,
+      ));
+    });
   }
 }
 
@@ -260,9 +361,9 @@ class ConteudoPagina extends State {
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.pink,
-                          fixedSize: const Size(210, 20)),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.pink,
+                      ),
                       child: const Text("Cadastrar Produto Gamer"),
                     ),
                     const SizedBox(height: 5),
@@ -274,9 +375,9 @@ class ConteudoPagina extends State {
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.pink,
-                          fixedSize: const Size(210, 20)),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.pink,
+                      ),
                       child: const Text("Cadastrar Produto Rede"),
                     ),
                     const SizedBox(height: 5),
@@ -288,9 +389,9 @@ class ConteudoPagina extends State {
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.pink,
-                          fixedSize: const Size(210, 20)),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.pink,
+                      ),
                       child: const Text("Cadastrar Produto Hardware"),
                     ),
                   ],
