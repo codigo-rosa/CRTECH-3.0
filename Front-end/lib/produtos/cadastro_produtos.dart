@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-
-// Importação do http
 import 'package:http/http.dart' as http;
-
-// Importação do convert
 import 'dart:convert';
 
-// Importação da classe Pessoa
-import 'package:crtech/produtos/produto.dart';
+class Produto {
+  int? id;
+  String? nome;
+  String? descricao;
+  double? preco;
+  int? quantidade;
+  String? imagem;
+}
 
-// Inicialização
 void main() {
   runApp(const MyApp());
 }
 
-// Stateless
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueGrey,
+          seedColor: Colors.pink,
         ),
       ),
       home: const PaginaCadastroProdutos(),
@@ -31,9 +31,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// StatefulWidget
 class PaginaCadastroProdutos extends StatefulWidget {
-  const PaginaCadastroProdutos({super.key});
+  const PaginaCadastroProdutos({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -41,158 +40,127 @@ class PaginaCadastroProdutos extends StatefulWidget {
   }
 }
 
-// CADASTRAR UM NOVo PRODUTO NA API
 Future<void> cadastrarProdutoGamer(String nome, String descricao, double preco,
     int quantidade, String imagem) async {
-  // Realizar requisição
   await http.post(Uri.parse('http://localhost:3000/listaGamer'),
       headers: <String, String>{'Content-type': 'application/json'},
       body: jsonEncode(<String, dynamic>{
         'nome': nome,
-        'descrição': descricao,
-        'preço': preco,
+        'descricao': descricao,
+        'preco': preco,
         'quantidade': quantidade,
         'imagem': imagem
       }));
 }
 
-// CADASTRAR UM NOVo PRODUTO NA API
 Future<void> cadastrarProdutoHardware(String nome, String descricao,
     double preco, int quantidade, String imagem) async {
-  // Realizar requisição
   await http.post(Uri.parse('http://localhost:3000/listaDeHardware'),
       headers: <String, String>{'Content-type': 'application/json'},
       body: jsonEncode(<String, dynamic>{
         'nome': nome,
-        'descrição': descricao,
-        'preço': preco,
+        'descricao': descricao,
+        'preco': preco,
         'quantidade': quantidade,
         'imagem': imagem
       }));
 }
 
-// DELETAR PRODUTO DA API
-Future<void> apagarProduto(int id) async {
+Future<void> cadastrarProdutoRede(String nome, String descricao, double preco,
+    int quantidade, String imagem) async {
+  await http.post(Uri.parse('http://localhost:3000/listaDeRede'),
+      headers: <String, String>{'Content-type': 'application/json'},
+      body: jsonEncode(<String, dynamic>{
+        'nome': nome,
+        'descricao': descricao,
+        'preco': preco,
+        'quantidade': quantidade,
+        'imagem': imagem
+      }));
+}
+
+Future<List<Produto>> selecionarProdutosGamer() async {
+  var retorno = await http.get(Uri.parse('http://localhost:3000/listaGamer'));
+  var dados = jsonDecode(retorno.body);
+  List<Produto> produtos = [];
+  for (var obj in dados) {
+    Produto produto = Produto();
+    produto.id = obj["id"];
+    produto.nome = obj["nome"];
+    produto.descricao = obj["descricao"];
+    produto.preco = obj["preco"];
+    produto.quantidade = obj["quantidade"];
+    produto.imagem = obj["imagem"];
+    produtos.add(produto);
+  }
+  return produtos;
+}
+
+Future<List<Produto>> selecionarProdutosHardware() async {
+  var retorno =
+      await http.get(Uri.parse('http://localhost:3000/listaDeHardware'));
+  var dados = jsonDecode(retorno.body);
+  List<Produto> produtos = [];
+  for (var obj in dados) {
+    Produto produto = Produto();
+    produto.id = obj["id"];
+    produto.nome = obj["nome"];
+    produto.descricao = obj["descricao"];
+    produto.preco = obj["preco"];
+    produto.quantidade = obj["quantidade"];
+    produto.imagem = obj["imagem"];
+    produtos.add(produto);
+  }
+  return produtos;
+}
+
+Future<List<Produto>> selecionarProdutosRede() async {
+  var retorno = await http.get(Uri.parse('http://localhost:3000/listaDeRede'));
+  var dados = jsonDecode(retorno.body);
+  List<Produto> produtos = [];
+  for (var obj in dados) {
+    Produto produto = Produto();
+    produto.id = obj["id"];
+    produto.nome = obj["nome"];
+    produto.descricao = obj["descricao"];
+    produto.preco = obj["preco"];
+    produto.quantidade = obj["quantidade"];
+    produto.imagem = obj["imagem"];
+    produtos.add(produto);
+  }
+  return produtos;
+}
+
+Future<void> apagarProdutoGamer(int id) async {
+  await http.delete(
+    Uri.parse('http://localhost:3000/listaGamer/$id'),
+    headers: <String, String>{'Content-type': 'application/json'},
+  );
+}
+
+Future<void> apagarProdutoHardware(int id) async {
   await http.delete(
     Uri.parse('http://localhost:3000/listaDeHardware/$id'),
     headers: <String, String>{'Content-type': 'application/json'},
   );
 }
 
-// // CADASTRAR UM NOVo PRODUTO NA API
-Future<void> cadastrarProdutoRede(String nome, String descricao, double preco,
-    int quantidade, String imagem) async {
-  // Realizar requisição
-  await http.post(Uri.parse('http://localhost:3000/listaDeRede'),
-      headers: <String, String>{'Content-type': 'application/json'},
-      body: jsonEncode(<String, dynamic>{
-        'nome': nome,
-        'descrição': descricao,
-        'preço': preco,
-        'quantidade': quantidade,
-        'imagem': imagem
-      }));
+Future<void> apagarProdutoRede(int id) async {
+  await http.delete(
+    Uri.parse('http://localhost:3000/listaDeRede/$id'),
+    headers: <String, String>{'Content-type': 'application/json'},
+  );
 }
 
-// SELECIONAR TODOS PRODUTOS GAMER
-Future<List<Produto>> selecionarProdutosGamer() async {
-  // Realizar a requisição
-  var retorno = await http.get(Uri.parse('http://localhost:3000/listaGamer'));
-
-  // Extrair o body do retorno
-  var dados = jsonDecode(retorno.body);
-
-  // Lista de pessoas
-  List<Produto> produto = [];
-
-  // Laço de repetição
-  for (var obj in dados) {
-    Produto p = Produto();
-    p.id = obj["id"];
-    p.nome = obj["nome"];
-    p.descricao = obj["descricao"];
-    p.preco = obj["preco"];
-    p.quantidade = obj["quantidade"];
-    p.imagem = obj["imagem"];
-
-    produto.add(p);
-  }
-
-  // Retorno
-  return produto;
-}
-
-// SELECIONAR TODOS PRODUTOS HARDWARE
-Future<List<Produto>> selecionarProdutosHardware() async {
-  // Realizar a requisição
-  var retorno =
-      await http.get(Uri.parse('http://localhost:3000/listaDeHardware'));
-
-  // Extrair o body do retorno
-  var dados = jsonDecode(retorno.body);
-
-  // Lista de pessoas
-  List<Produto> produto = [];
-
-  // Laço de repetição
-  for (var obj in dados) {
-    Produto p = Produto();
-    p.id = obj["id"];
-    p.nome = obj["nome"];
-    p.descricao = obj["descricao"];
-    p.preco = obj["preco"];
-    p.quantidade = obj["quantidade"];
-    p.imagem = obj["imagem"];
-
-    produto.add(p);
-  }
-
-  // Retorno
-  return produto;
-}
-
-// SELECIONAR TODOS PRODUTOS HARDWARE
-Future<List<Produto>> selecionarProdutosRede() async {
-  // Realizar a requisição
-  var retorno = await http.get(Uri.parse('http://localhost:3000/listaDeRede'));
-
-  // Extrair o body do retorno
-  var dados = jsonDecode(retorno.body);
-
-  // Lista de pessoas
-  List<Produto> produto = [];
-
-  // Laço de repetição
-  for (var obj in dados) {
-    Produto p = Produto();
-    p.id = obj["id"];
-    p.nome = obj["nome"];
-    p.descricao = obj["descricao"];
-    p.preco = obj["preco"];
-    p.quantidade = obj["quantidade"];
-    p.imagem = obj["imagem"];
-
-    produto.add(p);
-  }
-
-  // Retorno
-  return produto;
-}
-
-// State
 class ConteudoPagina extends State {
-  // Variáveis
   String? nome;
   String? descricao;
   double? preco;
   int? quantidade;
   String? imagem;
-  int? id;
 
-  // Método de inicialização
   @override
   void initState() {
-    // Super
     super.initState();
   }
 
@@ -203,246 +171,209 @@ class ConteudoPagina extends State {
         backgroundColor: Colors.pink,
         title: const Text("Cadastro de Produtos"),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            // FORMULÁRIO DE CADASTRO
-            SizedBox(
-              width: 300,
-              child: Column(
-                children: [
-                  // Campo de nome
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite um Nome',
+      body: Padding(
+        padding: EdgeInsets.all(40.0),
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                width: 300,
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite um nome',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          nome = valor;
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        nome = valor;
-                      });
-                    },
-                  ),
-                  // descrição
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite uma Descrição',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite uma descrição',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          descricao = valor;
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        descricao = valor;
-                      });
-                    },
-                  ),
-                  // preço
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite um Preço',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite um preço',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          preco = double.tryParse(valor);
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        preco = double.tryParse(valor);
-                      });
-                    },
-                  ),
-                  // quantidade
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite uma Quantidade',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite uma quantidade',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          quantidade = int.tryParse(valor);
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        quantidade = int.tryParse(valor);
-                      });
-                    },
-                  ),
-                  // imagem
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite o endereço de uma Imagem',
+                    TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Digite o endereço da imagem',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          imagem = valor;
+                        });
+                      },
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        imagem = valor;
-                      });
-                    },
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite o ID',
+                    const SizedBox(height: 25),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoGamer(
+                              nome!, descricao!, preco!, quantidade!, imagem!);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.pink,
+                          fixedSize: const Size(210, 20)),
+                      child: const Text("Cadastrar Produto Gamer"),
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        id = int.tryParse(valor);
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  // Botão
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        cadastrarProdutoGamer(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Gamer"),
-                  ),
-                  const SizedBox(height: 5),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        cadastrarProdutoRede(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Rede"),
-                  ),
-                  const SizedBox(height: 5),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        cadastrarProdutoHardware(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Hardware"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        apagarProduto(id!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Deletar Produto Hardware"),
-                  ),
-                ],
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoRede(
+                              nome!, descricao!, preco!, quantidade!, imagem!);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.pink,
+                          fixedSize: const Size(210, 20)),
+                      child: const Text("Cadastrar Produto Rede"),
+                    ),
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoHardware(
+                              nome!, descricao!, preco!, quantidade!, imagem!);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.pink,
+                          fixedSize: const Size(210, 20)),
+                      child: const Text("Cadastrar Produto Hardware"),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 5),
-
-            // LISTAGEM DE PESSOAS
-            Expanded(
-              child: FutureBuilder(
-                future: selecionarProdutosGamer(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(); // Mostra um indicador de carregamento enquanto aguarda a resposta da API.
-                  }
-                  if (snapshot.hasError) {
-                    return Text('Erro: ${snapshot.error}');
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          _mostrarDetalhesProduto(
-                              context, snapshot.data![index]);
-                        },
-                        child: Card(
-                          child: Column(
-                            children: [
-                              Text("ID: ${snapshot.data?[index].id}"),
-                              Text("Nome: ${snapshot.data?[index].nome}"),
-                            ],
+              const SizedBox(height: 80),
+              Expanded(
+                child: DefaultTabController(
+                  length: 3,
+                  child: Scaffold(
+                    appBar: const TabBar(
+                      indicator: BoxDecoration(
+                        color: Colors.pink,
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.pink,
+                            width: 2.0,
                           ),
                         ),
-                      );
-                    },
-                  );
-                },
+                      ),
+                      tabs: [
+                        Tab(text: 'Gamer'),
+                        Tab(text: 'Rede'),
+                        Tab(text: 'Hardware'),
+                      ],
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.pink,
+                    ),
+                    body: TabBarView(
+                      children: [
+                        _buildProdutoList(
+                            selecionarProdutosGamer, apagarProdutoGamer),
+                        _buildProdutoList(
+                            selecionarProdutosRede, apagarProdutoRede),
+                        _buildProdutoList(
+                            selecionarProdutosHardware, apagarProdutoHardware),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-            // LISTAGEM DE REDE
-            // LISTAGEM DE PESSOAS
-            Expanded(
-              child: FutureBuilder(
-                future: selecionarProdutosRede(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(); // Mostra um indicador de carregamento enquanto aguarda a resposta da API.
-                  }
-                  if (snapshot.hasError) {
-                    return Text('Erro: ${snapshot.error}');
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          _mostrarDetalhesProduto(
-                              context, snapshot.data![index]);
-                        },
-                        child: Card(
-                          child: Column(
-                            children: [
-                              Text("ID: ${snapshot.data?[index].id}"),
-                              Text("Nome: ${snapshot.data?[index].nome}"),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-            // LISTAGEM DE HARDWARE
-            Expanded(
-              child: FutureBuilder(
-                future: selecionarProdutosHardware(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(); // Mostra um indicador de carregamento enquanto aguarda a resposta da API.
-                  }
-                  if (snapshot.hasError) {
-                    return Text('Erro: ${snapshot.error}');
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          _mostrarDetalhesProduto(
-                              context, snapshot.data![index]);
-                        },
-                        child: Card(
-                          child: Column(
-                            children: [
-                              Text("ID: ${snapshot.data?[index].id}"),
-                              Text("Nome: ${snapshot.data?[index].nome}"),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildProdutoList(Future<List<Produto>> Function() fetchProdutos,
+      Future<void> Function(int id) deletarProdutos) {
+    return FutureBuilder(
+      future: fetchProdutos(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text('Erro: ${snapshot.error}');
+        }
+        return ListView.builder(
+          itemCount: snapshot.data?.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              child: Card(
+                elevation: 3,
+                margin: const EdgeInsets.all(10),
+                child: ListTile(
+                  title: Text(
+                    "Nome: ${snapshot.data?[index].nome}",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  subtitle: Text(
+                    "ID: ${snapshot.data?[index].id}",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_forward),
+                        onPressed: () {
+                          setState(() {
+                            _mostrarDetalhesProduto(
+                                context, snapshot.data![index]);
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            int? id = snapshot.data![index].id;
+                            deletarProdutos(id!);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -458,7 +389,7 @@ class ConteudoPagina extends State {
               Text("ID: ${produto.id}"),
               Text("Nome: ${produto.nome}"),
               Text("Descrição: ${produto.descricao}"),
-              Text("Preço: ${produto.preco?.toStringAsFixed(2)}"),
+              Text("Preço: ${produto.preco?.toStringAsFixed(2) ?? 'N/A'}"),
               Text("Quantidade: ${produto.quantidade}"),
             ],
           ),
@@ -475,4 +406,3 @@ class ConteudoPagina extends State {
     );
   }
 }
-
