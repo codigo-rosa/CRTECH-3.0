@@ -27,6 +27,8 @@ class TelaFavoritosState extends State<TelaFavoritos> {
                       )))
             },
           ),
+         
+         
           title: const Text('Favoritos', style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink,
         ),

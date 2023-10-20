@@ -42,6 +42,7 @@ class PaginaCadastroProdutos extends StatefulWidget {
 
 Future<void> cadastrarProdutoGamer(String? nome, String? descricao,
     double? preco, int? quantidade, String? imagem, context) async {
+ 
   if (nome == null ||
       descricao == null ||
       preco == null ||
@@ -54,6 +55,8 @@ Future<void> cadastrarProdutoGamer(String? nome, String? descricao,
       duration: Duration(seconds: 4),
       backgroundColor: Color.fromRGBO(233, 213, 2, 1),
     );
+
+
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   } else if (nome.isEmpty ||

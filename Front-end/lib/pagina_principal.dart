@@ -151,6 +151,7 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
               ),
             ],
           ),
+ 
           Expanded(
             child: GestureDetector(
               onTap: () {

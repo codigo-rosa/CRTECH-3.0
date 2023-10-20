@@ -159,6 +159,14 @@
       "quantidade": 1,
       "imagem": "aaaaaa",
       "id": 20
+    },
+    {
+      "nome": "44",
+      "descricao": "44",
+      "preco": 44,
+      "quantidade": 44,
+      "imagem": "44",
+      "id": 21
     }
   ],
   "listaDeHardware": [
