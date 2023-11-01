@@ -16,7 +16,8 @@ import 'package:intl/intl.dart';
 class PaginaPrincipal extends StatefulWidget {
   final List<Produtos> carrinho;
 
-  const PaginaPrincipal({Key? key, required this.carrinho}) : super(key: key);
+  PaginaPrincipal({Key? key, required this.carrinho, required this.favoritos})
+      : super(key: key);
 
   @override
   _EstadoPaginaPrincipal createState() => _EstadoPaginaPrincipal();
@@ -110,20 +111,20 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
               IconButton(
                 iconSize: 18.5, // Tamanho do ícone
                 icon: Icon(
-
-                  favoritos.contains(produtos) ? Icons.favorite : Icons.favorite_border,
-
+                  favoritos.contains(produtos)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                   color: Color.fromARGB(255, 231, 130, 164),
                 ),
                 onPressed: () {
                   setState(() {
-
                     if (favoritos.contains(produtos)) {
                       favoritos.remove(produtos);
                     } else {
-                      favoritos.add(produtos);
+                      setState(() {
+                        widget.favoritos = [...widget.favoritos, produtos];
+                      });
                     }
-
                   });
                 },
               ),
@@ -296,4 +297,3 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
     );
   }
 }
-

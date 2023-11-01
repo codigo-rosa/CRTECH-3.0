@@ -41,42 +41,189 @@ class PaginaCadastroProdutos extends StatefulWidget {
   }
 }
 
-// CADASTRAR UM NOVo PRODUTO NA API
-Future<void> cadastrarProdutoGamer(String nome, String descricao, double preco,
-    int quantidade, String imagem) async {
-  // Realizar requisição
-  await http.post(Uri.parse('http://localhost:3000/listaGamer'),
-      headers: <String, String>{'Content-type': 'application/json'},
-      body: jsonEncode(<String, dynamic>{
-        'nome': nome,
-        'descrição': descricao,
-        'preço': preco,
-        'quantidade': quantidade,
-        'imagem': imagem
-      }));
+Future<void> cadastrarProdutoGamer(String? nome, String? descricao,
+    double? preco, int? quantidade, String? imagem, context) async {
+ 
+  if (nome == null ||
+      descricao == null ||
+      preco == null ||
+      quantidade == null ||
+      imagem == null) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+
+
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else if (nome.isEmpty ||
+      descricao.isEmpty ||
+      preco.isNaN ||
+      quantidade.isNaN ||
+      imagem.isEmpty) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else {
+    await http
+        .post(Uri.parse('http://localhost:3000/listaGamer'),
+            headers: <String, String>{'Content-type': 'application/json'},
+            body: jsonEncode(<String, dynamic>{
+              'nome': nome,
+              'descricao': descricao,
+              'preco': preco,
+              'quantidade': quantidade,
+              'imagem': imagem
+            }))
+        .then((value) => {
+              if (value.statusCode == 201)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Item cadastrado com sucesso.'),
+                    duration: Duration(seconds: 4),
+                    backgroundColor: Colors.green,
+                  ))
+                }
+              else
+                {throw Error}
+            })
+        .catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Ocorreu um erro ao registrar o produto.'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.red,
+      ));
+    });
+  }
 }
 
-// CADASTRAR UM NOVo PRODUTO NA API
-Future<void> cadastrarProdutoHardware(String nome, String descricao,
-    double preco, int quantidade, String imagem) async {
-  // Realizar requisição
-  await http.post(Uri.parse('http://localhost:3000/listaDeHardware'),
-      headers: <String, String>{'Content-type': 'application/json'},
-      body: jsonEncode(<String, dynamic>{
-        'nome': nome,
-        'descrição': descricao,
-        'preço': preco,
-        'quantidade': quantidade,
-        'imagem': imagem
-      }));
+Future<void> cadastrarProdutoHardware(String? nome, String? descricao,
+    double? preco, int? quantidade, String? imagem, context) async {
+  if (nome == null ||
+      descricao == null ||
+      preco == null ||
+      quantidade == null ||
+      imagem == null) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.'),
+      duration: Duration(seconds: 4),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else if (nome.isEmpty ||
+      descricao.isEmpty ||
+      preco.isNaN ||
+      quantidade.isNaN ||
+      imagem.isEmpty) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else {
+    await http
+        .post(Uri.parse('http://localhost:3000/listaDeHardware'),
+            headers: <String, String>{'Content-type': 'application/json'},
+            body: jsonEncode(<String, dynamic>{
+              'nome': nome,
+              'descricao': descricao,
+              'preco': preco,
+              'quantidade': quantidade,
+              'imagem': imagem
+            }))
+        .then((value) => {
+              if (value.statusCode == 201)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Item cadastrado com sucesso.'),
+                    duration: Duration(seconds: 4),
+                    backgroundColor: Colors.green,
+                  ))
+                }
+              else
+                {throw Error}
+            })
+        .catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Ocorreu um erro ao registrar o produto.'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.red,
+      ));
+    });
+  }
 }
 
-// DELETAR PRODUTO DA API
-Future<void> apagarProduto(int id) async {
-  await http.delete(
-    Uri.parse('http://localhost:3000/listaDeHardware/$id'),
-    headers: <String, String>{'Content-type': 'application/json'},
-  );
+Future<void> cadastrarProdutoRede(String? nome, String? descricao,
+    double? preco, int? quantidade, String? imagem, context) async {
+  if (nome == null ||
+      descricao == null ||
+      preco == null ||
+      quantidade == null ||
+      imagem == null) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.',
+          style: TextStyle(color: Color.fromRGBO(40, 40, 40, 1))),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else if (nome.isEmpty ||
+      descricao.isEmpty ||
+      preco.isNaN ||
+      quantidade.isNaN ||
+      imagem.isEmpty) {
+    const snackBar = SnackBar(
+      content: Text(
+          'Por favor, preencha todas informações para cadastrar o produto.'),
+      duration: Duration(seconds: 4),
+      backgroundColor: Color.fromRGBO(233, 213, 2, 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  } else {
+    await http
+        .post(Uri.parse('http://localhost:3000/listaDeRede'),
+            headers: <String, String>{'Content-type': 'application/json'},
+            body: jsonEncode(<String, dynamic>{
+              'nome': nome,
+              'descricao': descricao,
+              'preco': preco,
+              'quantidade': quantidade,
+              'imagem': imagem
+            }))
+        .then((value) => {
+              if (value.statusCode == 201)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Item cadastrado com sucesso.'),
+                    duration: Duration(seconds: 4),
+                    backgroundColor: Colors.green,
+                  ))
+                }
+              else
+                {throw Error}
+            })
+        .catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Ocorreu um erro ao registrar o produto.'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.red,
+      ));
+    });
+  }
 }
 
 // // CADASTRAR UM NOVo PRODUTO NA API
@@ -260,82 +407,50 @@ class ConteudoPagina extends State {
                     decoration: const InputDecoration(
                       hintText: 'Digite o endereço de uma Imagem',
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        imagem = valor;
-                      });
-                    },
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Digite o ID',
+                    const SizedBox(height: 25),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoGamer(nome, descricao, preco,
+                              quantidade, imagem, context);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.pink,
+                      ),
+                      child: const Text("Cadastrar Produto Gamer"),
                     ),
-                    onChanged: (valor) {
-                      setState(() {
-                        id = int.tryParse(valor);
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  // Botão
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        cadastrarProdutoGamer(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoRede(nome, descricao, preco,
+                              quantidade, imagem, context);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Gamer"),
-                  ),
-                  const SizedBox(height: 5),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        cadastrarProdutoRede(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
+                      ),
+                      child: const Text("Cadastrar Produto Rede"),
+                    ),
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          cadastrarProdutoHardware(nome, descricao, preco,
+                              quantidade, imagem, context);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Rede"),
-                  ),
-                  const SizedBox(height: 5),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        cadastrarProdutoHardware(
-                            nome!, descricao!, preco!, quantidade!, imagem!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Cadastrar Produto Hardware"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // Executar o método de cadastro
-                        apagarProduto(id!);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.pink,
-                        fixedSize: const Size(210, 20)),
-                    child: const Text("Deletar Produto Hardware"),
-                  ),
-                ],
+                      ),
+                      child: const Text("Cadastrar Produto Hardware"),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 5),

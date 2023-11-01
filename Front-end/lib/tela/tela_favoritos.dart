@@ -16,7 +16,17 @@ class TelaFavoritosState extends State<TelaFavoritos> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Favoritos'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => PaginaPrincipal(
+                        carrinho: const [],
+                        favoritos: widget.favoritos,
+                      )))
+            },
+          ),
+          title: const Text('Favoritos', style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink,
         ),
         backgroundColor: Color.fromARGB(239, 238, 237, 237),
@@ -36,7 +46,7 @@ class TelaFavoritosState extends State<TelaFavoritos> {
                 itemCount: widget.favoritos.length,
                 itemBuilder: (context, index) {
                   final produto = widget.favoritos[index];
-                  
+
                   return Container(
                     padding: EdgeInsets.all(8),
                     margin: EdgeInsets.symmetric(
@@ -64,11 +74,11 @@ class TelaFavoritosState extends State<TelaFavoritos> {
                           IconButton(
                               icon: Icon(
                                 Icons.favorite,
-                              color: Color.fromARGB(255, 231, 130, 164),
+                                color: Color.fromARGB(255, 231, 130, 164),
                               ),
                               onPressed: () {
                                 setState(() {
-                                widget.favoritos.removeAt(index);
+                                  widget.favoritos.removeAt(index);
                                 });
                               }),
                         ],
