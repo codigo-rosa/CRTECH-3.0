@@ -10,7 +10,7 @@ import 'package:crtech/produtos/cadastro_produtos.dart';
 class CustomBottomAppBar extends StatelessWidget {
   final Function(int) onTabSelected;
   final int selectedIndex;
-  final List<Produtos> favoritos;
+  List favoritos;
 
   CustomBottomAppBar({
     required this.onTabSelected,
@@ -21,11 +21,11 @@ class CustomBottomAppBar extends StatelessWidget {
   // Método para abrir a página de favoritos
   void _openFavoritesPage(BuildContext context) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TelaFavoritos(favoritos: favoritos),
-        ),
-        );
+      context,
+      MaterialPageRoute(
+        builder: (context) => TelaFavoritos(favoritos: favoritos),
+      ),
+    );
   }
 
 // Método para abrir a página de perfil
@@ -85,8 +85,8 @@ class CustomBottomAppBar extends StatelessWidget {
               ),
           IconButton(
               icon: const Icon(Icons.settings), // Ícone de perfil do usuário
-              onPressed: () =>
-                  _openCadastroProdutos(context), // Abre a página de cadastro de produtos
+              onPressed: () => _openCadastroProdutos(
+                  context), // Abre a página de cadastro de produtos
               color: Colors
                   .pink // Altere o ícone ativo/inativo conforme necessário
               ),
@@ -95,5 +95,3 @@ class CustomBottomAppBar extends StatelessWidget {
     );
   }
 }
-
-

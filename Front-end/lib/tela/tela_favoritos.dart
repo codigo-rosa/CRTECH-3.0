@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:crtech/produtos/produtos.dart';
 
 class TelaFavoritos extends StatefulWidget {
-  final List<Produtos> favoritos;
+  List favoritos;
 
-  const TelaFavoritos({Key? key, required this.favoritos}) : super(key: key);
+  TelaFavoritos({Key? key, required this.favoritos}) : super(key: key);
 
   @override
   TelaFavoritosState createState() => TelaFavoritosState();

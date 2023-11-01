@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unused_local_variable
+// ignore_for_file: unused_import, unused_local_variable, must_be_immutable
 
 import 'package:crtech/appBar.dart';
 import 'package:crtech/barra_inferior.dart';
@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 
 class PaginaPrincipal extends StatefulWidget {
   final List<Produtos> carrinho;
-  dynamic favoritos;
+  List favoritos;
 
   PaginaPrincipal({Key? key, required this.carrinho, required this.favoritos})
       : super(key: key);
@@ -28,8 +28,12 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
   int isSelected = 0;
   String searchText = "";
   List<Produtos> listaDeProdutos = MeusProdutos.todosProdutos;
-  List<Produtos> favoritos = [];
   List<Produtos> carrinho = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +96,7 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
           });
         },
         selectedIndex: isSelected,
-        favoritos: favoritos,
+        favoritos: widget.favoritos,
       ),
       backgroundColor: Color.fromARGB(239, 238, 237, 237),
     );
@@ -112,18 +116,18 @@ class _EstadoPaginaPrincipal extends State<PaginaPrincipal> {
               IconButton(
                 iconSize: 18.5, // Tamanho do ícone
                 icon: Icon(
-                  favoritos.contains(produtos)
+                  widget.favoritos.contains(produtos)
                       ? Icons.favorite
                       : Icons.favorite_border,
                   color: Color.fromARGB(255, 231, 130, 164),
                 ),
                 onPressed: () {
                   setState(() {
-                    if (favoritos.contains(produtos)) {
-                      favoritos.remove(produtos);
+                    if (widget.favoritos.contains(produtos)) {
+                      widget.favoritos.remove(produtos);
                     } else {
                       setState(() {
-                        widget.favoritos = [...widget.favoritos, produtos];
+                        widget.favoritos.add(produtos);
                       });
                     }
                   });
