@@ -21,7 +21,10 @@ class TelaAberturaState extends State<TelaAbertura> {
         // Utiliza o `Navigator.pushReplacement` para substituir esta tela.
         context,
         MaterialPageRoute(
-          builder: (context) => const PaginaPrincipal(carrinho: []),
+          builder: (context) => PaginaPrincipal(
+            carrinho: [],
+            favoritos: null,
+          ),
         ),
       );
     });

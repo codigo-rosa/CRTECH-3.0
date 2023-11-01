@@ -15,6 +15,7 @@ import 'package:intl/intl.dart';
 
 class PaginaPrincipal extends StatefulWidget {
   final List<Produtos> carrinho;
+  dynamic favoritos;
 
   PaginaPrincipal({Key? key, required this.carrinho, required this.favoritos})
       : super(key: key);
