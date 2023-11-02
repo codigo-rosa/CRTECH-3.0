@@ -23,7 +23,7 @@ class TelaAberturaState extends State<TelaAbertura> {
         MaterialPageRoute(
           builder: (context) => PaginaPrincipal(
             carrinho: [],
-            favoritos: null,
+            favoritos: [],
           ),
         ),
       );
